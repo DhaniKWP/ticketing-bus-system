@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up()
 {
-    Schema::create('seats', function (Blueprint $table) {
+    Schema::create('bookings', function (Blueprint $table) {
         $table->id();
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
         $table->foreignId('bus_id')->constrained()->onDelete('cascade');
-        $table->string('nomor_kursi'); // Misal: A1, B2, C3
-        $table->boolean('is_booked')->default(false);
+        $table->foreignId('seat_id')->constrained()->onDelete('cascade');
+        $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
         $table->timestamps();
     });
 }
-
 
     /**
      * Reverse the migrations.
