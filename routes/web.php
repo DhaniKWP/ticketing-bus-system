@@ -4,9 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookingController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [BookingController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -21,3 +19,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
